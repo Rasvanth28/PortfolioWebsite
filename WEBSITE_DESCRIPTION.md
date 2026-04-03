@@ -1,33 +1,19 @@
-# Website Description: Cicada 3301 Portfolio
+# WEBSITE DESCRIPTION: THE TERMINAL INITIATIVE
 
-This portfolio website is a minimalist, high-contrast, cryptographic project designed for a Computer Science student and Machine Learning Research Engineer. 
+This website acts as the personal portfolio of K.C. Rasvanth, an ML Research Engineer. However, the site rejects traditional grid-based layouts and "about me" paragraphs. Instead, it is built as an interactive, cryptographic puzzle piece.
 
-### 🦋 Visual Concept: "The Digital Chrysalis"
-Inspired by the **Cicada 3301** internet mystery, the site uses a "Deep Space" theme:
-- **Base Color**: Deep Black (#050505)
-- **Primary Accent**: Neon Violet (#9d4edd)
-- **Typography**: JetBrains Mono (Monospace) to maintain a terminal/cryptographic feel.
+## Design Philosophy
+The site's aesthetic is heavily influenced by hacker culture, cyberpunk motifs, and cryptographic mysteries like Cicada 3301. Visually, the site resembles a secure, encrypted terminal access point. 
 
-### 🖥 Technical Stack
-- **Structure**: Semantic HTML5 for better accessibility and SEO.
-- **Styling**: Vanilla CSS3 with custom keyframe animations and glassmorphism effects.
-- **Logic**: Plain JavaScript (ES6+) for all interactive elements.
-- **Visuals**: HTML5 Canvas API for an ambient, interactive butterfly particle system.
+- **Color Palette**: Deep Space Black (`#050505`) with striking Deep Violet (`#9d4edd`) neon tones.
+- **Glassmorphism**: UI elements use frosted-glass blurs, ensuring the user feels detached from standard flat web layouts while hinting at deeper layers below the surface.
+- **Typography**: Complete reliance on rigid monospace fonts (`JetBrains Mono`).
 
-### 📂 Core Sections
-- **Hero**: A terminal-style intro with a typewriter effect and a scrolling command history.
-- **Education**: A vertical timeline showing academic progress at VIT Vellore.
-- **Skills**: Interactive "Data Nodes" that react to hover and click events.
-- **Projects**: A grid layout for major repositories (Roboball-Detector, DeepFake Detection, and Web Game) with direct links to GitHub.
-- **Contact**: A terminal-themed form for professional inquiries.
+## Interactive Immersion
+This portfolio forces the user to engage. The primary way to receive information is to ask the system for it via the bottom console.
 
-### 🔧 Key Features
-- **Interactive Terminal**: A bottom command console that redirects output to the main Hero terminal.
-- **Hidden Console Commands**: Try `whois`, `help`, `skills`, or `reveal` (contains an Easter Egg).
-- **Ambient Particles**: Large, ethereal butterflies that pulse and react to mouse clicks.
-- **Responsive Design**: Built to perform flawlessly on desktop, tablets, and mobile devices.
+### The Console
+The footer features an ever-present `guest@cicada:~$` prompt. The user must type commands (`whois`, `projects`, `reveal`) to navigate the site. A unique feature of this console is the `sendMail` command—bypassing traditional contact forms natively with an interactive text-based prompt sequence that handles secure message transmission.
 
----
-
-> [!IMPORTNAT]
-> This file is generated for internal documentation and is excluded from the Git repository.
+### The Canvas
+A massive, screen-spanning HTML5 canvas hosts ethereal, glitching butterfly objects. These are not static videos but computed vector paths. If a user clicks one, they trigger "The Butterfly Effect." This causes the system's local reality to destabilize, shattering the butterfly into particles and overriding the global cascading style sheets to flash violent, chaotic colors for five seconds before the timeline repairs itself.

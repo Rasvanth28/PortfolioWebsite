@@ -1,6 +1,6 @@
-# Portfolio Creation Documentation: Cicada 3301 Project
+# System Documentation
 
-This document outlines the development process of a minimalist, cryptographic-themed portfolio website.
+This document outlines the technical architecture of the interactive portfolio.
 
 ## 🛠 Tools Used
 - **HTML5 & CSS3**: Core structure and design system.
