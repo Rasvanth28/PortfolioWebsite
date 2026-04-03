@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- Typewriter Effect --- */
 function initTypewriter() {
     const textElement = document.getElementById('typewriter-text');
-    const role = "ML Research Engineer";
+    const role = "Machine Learning Research Engineer";
     let index = 0;
 
     function type() {
@@ -145,12 +145,14 @@ function initConsole() {
     const closeBtn = document.getElementById('close-overlay');
     const playerDiv = document.getElementById('player');
 
+    let terminalState = 'normal';
+    let emailData = { email: '', message: '' };
+
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            const cmd = input.value.toLowerCase().trim();
+            const rawInput = input.value.trim();
             input.value = '';
-
-            processCommand(cmd);
+            if (rawInput) processCommand(rawInput);
         }
     });
 
@@ -173,18 +175,62 @@ function initConsole() {
         terminalBody.scrollTop = terminalBody.scrollHeight;
     }
 
-    function processCommand(cmd) {
-        appendTerminalOutput(cmd, true);
+    function processCommand(rawInput) {
+        appendTerminalOutput(rawInput, true);
+
+        if (terminalState === 'awaiting_email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(rawInput)) {
+                appendTerminalOutput("[ERROR: INVALID_EMAIL_FORMAT]");
+                appendTerminalOutput("ENTER RETURN_ADDRESS (Email):");
+                return;
+            }
+            emailData.email = rawInput;
+            appendTerminalOutput(`[SENDER LATCHED: ${emailData.email}]`);
+            appendTerminalOutput("ENTER DATA_PAYLOAD (Message):");
+            terminalState = 'awaiting_message';
+            return;
+        }
+
+        if (terminalState === 'awaiting_message') {
+            emailData.message = rawInput;
+            appendTerminalOutput("[PAYLOAD RECEIVED. TRANSMITTING...]");
+            terminalState = 'sending';
+            
+            fetch("https://formspree.io/f/mzdkjbar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: emailData.email, message: emailData.message })
+            }).then(response => {
+                if (response.ok) {
+                    appendTerminalOutput("TRANSMISSION_SUCCESSFUL: DATA_ENCRYPTED_AND_SENT.");
+                } else {
+                    appendTerminalOutput("TRANSMISSION_FAILED: UPLINK_ERROR.");
+                }
+                terminalState = 'normal';
+            }).catch(error => {
+                appendTerminalOutput("TRANSMISSION_FAILED: UPLINK_ERROR.");
+                terminalState = 'normal';
+            });
+            return;
+        }
+
+        const cmd = rawInput.toLowerCase();
 
         switch (cmd) {
             case 'help':
-                appendTerminalOutput("AVAILABLE_COMMANDS: whois, skills, projects, clear, reveal");
+                appendTerminalOutput("AVAILABLE_COMMANDS: whois, skills, projects, sendMail, clear, reveal");
                 break;
             case 'whois':
                 appendTerminalOutput("IDENTITY: K.C. Rasvanth | ROLE: ML Research Engineer | STATUS: ACTIVE");
                 break;
             case 'skills':
                 appendTerminalOutput("SKILLS_DETECTED: Python, Machine Learning, C++, Security Research");
+                break;
+            case 'sendmail':
+                appendTerminalOutput("SECURE_UPLINK_ESTABLISHED.");
+                appendTerminalOutput("ENTER RETURN_ADDRESS (Email):");
+                terminalState = 'awaiting_email';
                 break;
             case 'project':
             case 'projects':
