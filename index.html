@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K.C. Rasvanth | ML Research Engineer</title>
+    <meta name="description" content="Portfolio of K.C. Rasvanth, a Computer Science student and ML Research Engineer with a focus on Deepfake Detection and Web Games.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <canvas id="butterfly-canvas"></canvas>
+    
+    <nav id="main-nav">
+        <div class="logo">PORTFOLIO_V3.301</div>
+        <ul>
+            <li><a href="#hero">HOME</a></li>
+            <li><a href="#education">EDUCATION</a></li>
+            <li><a href="#skills">SKILLS</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="hero" class="full-height">
+            <div class="content-wrapper">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="title">terminal — 80x24</span>
+                </div>
+                <div class="terminal-body">
+                    <p class="command">> whoami</p>
+                    <h1 class="name">K.C. RASVANTH</h1>
+                    <p class="role typewriter" id="typewriter-text"></p>
+                    <p class="cursor">_</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <h2 class="section-title">EDUCATION</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>B.Tech in Computer Science</h3>
+                        <p class="institution">Your University Name Here</p>
+                        <p class="date">2022 — 2026</p>
+                        <p class="details">Focused on Artificial Intelligence, Machine Learning, and Cryptography principles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <h2 class="section-title">TECHNICAL_STACK</h2>
+            <div class="skills-grid" id="skills-grid">
+                <div class="skill-category">
+                    <h3>LANGUAGES</h3>
+                    <ul class="skill-list">
+                        <li class="data-node" data-skill="Python">Python</li>
+                        <li class="data-node" data-skill="C++">C++</li>
+                        <li class="data-node" data-skill="Javascript">Javascript</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>MACHINE_LEARNING</h3>
+                    <ul class="skill-list">
+                        <li class="data-node" data-skill="PyTorch">PyTorch</li>
+                        <li class="data-node" data-skill="TensorFlow">TensorFlow</li>
+                        <li class="data-node" data-skill="Computer Vision">Computer Vision</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2 class="section-title">PROJECT_LOGS</h2>
+            <div class="projects-container">
+                <article class="project-card">
+                    <div class="project-header">
+                        <span class="category">AI / SECURITY</span>
+                        <h3>Deepfake Detection</h3>
+                    </div>
+                    <p>Development of a robust CNN-based architecture to identify manipulated video content with high precision.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn-link">VIEW_REPO</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-header">
+                        <span class="category">GAME_DEV</span>
+                        <h3>WebGame</h3>
+                    </div>
+                    <p>A browser-based immersive experience featuring complex physics and procedural generation environments.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn-link">PLAY_DEMO</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section-title">CONTACT_INITIATE</h2>
+            <div class="contact-terminal">
+                <p>READY FOR INQUIRY...</p>
+                <form id="contact-form">
+                    <div class="input-group">
+                        <label for="name">NAME:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">EMAIL:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="message">MESSAGE:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="glitch-btn">SEND_ENCRYPTED_MESSAGE</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer id="console-footer">
+        <div class="console-input-wrapper">
+            <span class="prompt">guest@cicada:~$</span>
+            <input type="text" id="console-input" placeholder="Type 'help' for commands..." autocomplete="off">
+        </div>
+    </footer>
+
+    <div id="rickroll-overlay" class="hidden">
+        <div class="overlay-content">
+            <p class="warning">CRITICAL_EXCEPTION: YOU_ARE_BEING_REDIRECTED</p>
+            <div id="player"></div>
+            <button id="close-overlay">TERMINATE_PROCESS</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
