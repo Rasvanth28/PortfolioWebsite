@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* --- Typewriter Effect --- */
 function initTypewriter() {
     const textElement = document.getElementById('typewriter-text');
-    const role = "ML Research Engineer // Security Enthusiast";
+    const role = "ML Research Engineer";
     let index = 0;
 
     function type() {
@@ -33,7 +33,7 @@ function initTypewriter() {
 function initButterflySystem() {
     const canvas = document.getElementById('butterfly-canvas');
     const ctx = canvas.getContext('2d');
-    
+
     let butterflies = [];
     const count = 15;
 
@@ -78,24 +78,24 @@ function initButterflySystem() {
             ctx.save();
             ctx.translate(this.x, this.y);
             ctx.globalAlpha = this.opacity;
-            
+
             ctx.fillStyle = this.color;
             ctx.shadowBlur = 10;
             ctx.shadowColor = this.color;
 
             // Draw wings (simplified triangle approach for ethereal look)
             const wingWidth = Math.abs(Math.sin(this.wingPulse)) * this.size * 3;
-            
+
             // Left Wing
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.quadraticCurveTo(-wingWidth, -this.size * 2, -wingWidth/2, this.size);
+            ctx.quadraticCurveTo(-wingWidth, -this.size * 2, -wingWidth / 2, this.size);
             ctx.fill();
 
             // Right Wing
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.quadraticCurveTo(wingWidth, -this.size * 2, wingWidth/2, this.size);
+            ctx.quadraticCurveTo(wingWidth, -this.size * 2, wingWidth / 2, this.size);
             ctx.fill();
 
             ctx.restore();
@@ -124,14 +124,14 @@ function initButterflySystem() {
         const mouseY = e.clientY - rect.top;
 
         butterflies.forEach(b => {
-            const dist = Math.sqrt((b.x - mouseX)**2 + (b.y - mouseY)**2);
+            const dist = Math.sqrt((b.x - mouseX) ** 2 + (b.y - mouseY) ** 2);
             if (dist < 50) {
                 // Trigger terminal pulse
                 document.body.style.boxShadow = "inset 0 0 100px var(--neon-accent)";
                 setTimeout(() => {
                     document.body.style.boxShadow = "none";
                 }, 200);
-                
+
                 console.log("%c [BUTTERFLY_DETECTOR]: Signal Detected. Try 'reveal' in console.", "color: #9d4edd; font-weight: bold;");
             }
         });
@@ -176,7 +176,7 @@ function initConsole() {
     function processCommand(cmd) {
         appendTerminalOutput(cmd, true);
 
-        switch(cmd) {
+        switch (cmd) {
             case 'help':
                 appendTerminalOutput("AVAILABLE_COMMANDS: whois, skills, projects, clear, reveal");
                 break;
@@ -186,9 +186,10 @@ function initConsole() {
             case 'skills':
                 appendTerminalOutput("SKILLS_DETECTED: Python, Machine Learning, C++, Security Research");
                 break;
+            case 'project':
             case 'projects':
-                appendTerminalOutput("REDIRECTING_TO_DOCS: Scroll down to PROJECT_LOGS section.");
-                window.location.hash = 'projects';
+                appendTerminalOutput("REDIRECTING_TO_DOCS: Scrolling to PROJECT_LOGS section.");
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
                 break;
             case 'reveal':
                 appendTerminalOutput("SECURITY_BREACH: INITIATING_OVERLAY_SEQUENCE...");
