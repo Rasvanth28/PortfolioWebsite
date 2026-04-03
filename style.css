@@ -92,7 +92,8 @@ canvas#butterfly-canvas {
 
 /* --- Hero & Terminal --- */
 .terminal-header {
-    background: #2a2a2a;
+    background: rgba(42, 42, 42, 0.7);
+    backdrop-filter: blur(8px);
     padding: 8px 15px;
     border-radius: 6px 6px 0 0;
     display: flex;
@@ -120,10 +121,11 @@ canvas#butterfly-canvas {
 }
 
 .terminal-body {
-    background: var(--terminal-gray);
+    background: rgba(18, 18, 18, 0.55);
+    backdrop-filter: blur(12px);
     padding: 30px;
     border-radius: 0 0 6px 6px;
-    border: 1px solid #333;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     width: 500px;
     max-width: 90vw;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
@@ -244,9 +246,10 @@ canvas#butterfly-canvas {
 }
 
 .project-card {
-    background: var(--terminal-gray);
+    background: rgba(18, 18, 18, 0.55);
+    backdrop-filter: blur(12px);
     padding: 25px;
-    border: 1px solid #222;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -265,9 +268,10 @@ canvas#butterfly-canvas {
 
 /* --- Contact --- */
 .contact-terminal {
-    background: var(--terminal-gray);
+    background: rgba(18, 18, 18, 0.55);
+    backdrop-filter: blur(12px);
     padding: 40px;
-    border: 1px solid #333;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     max-width: 600px;
 }
 
