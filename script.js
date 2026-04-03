@@ -35,6 +35,7 @@ function initButterflySystem() {
     const ctx = canvas.getContext('2d');
 
     let butterflies = [];
+    let particles = [];
     const count = 15;
 
     function resize() {
@@ -102,6 +103,36 @@ function initButterflySystem() {
         }
     }
 
+    class Particle {
+        constructor(x, y, color) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 3 + 1;
+            this.speedX = (Math.random() - 0.5) * 8;
+            this.speedY = (Math.random() - 0.5) * 8;
+            this.opacity = 1;
+            this.color = color;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.opacity -= 0.02;
+        }
+
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, this.opacity);
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
     for (let i = 0; i < count; i++) {
         butterflies.push(new Butterfly());
     }
@@ -112,27 +143,57 @@ function initButterflySystem() {
             b.update();
             b.draw();
         });
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+            let p = particles[i];
+            p.update();
+            p.draw();
+            if (p.opacity <= 0) {
+                particles.splice(i, 1);
+            }
+        }
+
         requestAnimationFrame(animate);
     }
 
     animate();
 
-    // Interaction Easter Egg
-    canvas.addEventListener('click', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
+    // Interaction: Butterfly Effect
+    window.addEventListener('click', (e) => {
+        // Ignore clicks on functional elements to prevent accidental triggers
+        if (["INPUT", "TEXTAREA", "BUTTON", "A"].includes(e.target.tagName)) return;
+
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
 
         butterflies.forEach(b => {
             const dist = Math.sqrt((b.x - mouseX) ** 2 + (b.y - mouseY) ** 2);
             if (dist < 50) {
-                // Trigger terminal pulse
-                document.body.style.boxShadow = "inset 0 0 100px var(--neon-accent)";
-                setTimeout(() => {
-                    document.body.style.boxShadow = "none";
-                }, 200);
+                // Visual Effect: Random Catalyst
+                const isHyperspeed = Math.random() > 0.5;
+                const currentColor = getComputedStyle(document.documentElement).getPropertyValue('--neon-accent').trim();
 
-                console.log("%c [BUTTERFLY_DETECTOR]: Signal Detected. Try 'reveal' in console.", "color: #9d4edd; font-weight: bold;");
+                if (isHyperspeed) {
+                    b.speedY = -25;
+                    b.speedX = (Math.random() - 0.5) * 15;
+                    b.color = currentColor;
+                } else {
+                    for (let i = 0; i < 30; i++) {
+                        particles.push(new Particle(b.x, b.y, currentColor));
+                    }
+                    b.init(); // Reset shattered butterfly
+                }
+
+                // Global Color Glitch
+                const randomColor = `hsl(${Math.random() * 360}, 100%, 65%)`;
+                document.documentElement.style.setProperty('--neon-accent', randomColor);
+
+                // Resolve Anomaly
+                setTimeout(() => {
+                    document.documentElement.style.setProperty('--neon-accent', '#9d4edd');
+                }, 5000);
+
+                console.log("%c [BUTTERFLY_DETECTOR]: Reality manipulated. Try 'reveal' in console.", "color: #9d4edd; font-weight: bold;");
             }
         });
     });
@@ -178,38 +239,46 @@ function initConsole() {
     function processCommand(rawInput) {
         appendTerminalOutput(rawInput, true);
 
+        if (rawInput.toLowerCase() === 'clear') {
+            document.getElementById('terminal-history').innerHTML = '';
+            console.clear();
+            terminalState = 'normal';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
         if (terminalState === 'awaiting_email') {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(rawInput)) {
                 appendTerminalOutput("[ERROR: INVALID_EMAIL_FORMAT]");
-                appendTerminalOutput("ENTER RETURN_ADDRESS (Email):");
+                appendTerminalOutput("Enter Email ID:");
                 return;
             }
             emailData.email = rawInput;
-            appendTerminalOutput(`[SENDER LATCHED: ${emailData.email}]`);
-            appendTerminalOutput("ENTER DATA_PAYLOAD (Message):");
+            appendTerminalOutput(`[Email Saved: ${emailData.email}]`);
+            appendTerminalOutput("Enter Message:");
             terminalState = 'awaiting_message';
             return;
         }
 
         if (terminalState === 'awaiting_message') {
             emailData.message = rawInput;
-            appendTerminalOutput("[PAYLOAD RECEIVED. TRANSMITTING...]");
+            appendTerminalOutput("[Message Received. Sending...]");
             terminalState = 'sending';
-            
+
             fetch("https://formspree.io/f/mzdkjbar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: emailData.email, message: emailData.message })
             }).then(response => {
                 if (response.ok) {
-                    appendTerminalOutput("TRANSMISSION_SUCCESSFUL: DATA_ENCRYPTED_AND_SENT.");
+                    appendTerminalOutput("Transmission Successful: Mail sent.");
                 } else {
-                    appendTerminalOutput("TRANSMISSION_FAILED: UPLINK_ERROR.");
+                    appendTerminalOutput("Transmission Failed: Could not send mail.");
                 }
                 terminalState = 'normal';
             }).catch(error => {
-                appendTerminalOutput("TRANSMISSION_FAILED: UPLINK_ERROR.");
+                appendTerminalOutput("Transmission Failed: Could not send mail.");
                 terminalState = 'normal';
             });
             return;
@@ -219,34 +288,38 @@ function initConsole() {
 
         switch (cmd) {
             case 'help':
-                appendTerminalOutput("AVAILABLE_COMMANDS: whois, skills, projects, sendMail, clear, reveal");
+                appendTerminalOutput("AVAILABLE_COMMANDS: whois, skills, projects, contact, sendMail, clear, reveal");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 break;
             case 'whois':
-                appendTerminalOutput("IDENTITY: K.C. Rasvanth | ROLE: ML Research Engineer | STATUS: ACTIVE");
+                appendTerminalOutput("IDENTITY: K.C.Rasvanth | ROLE: ML Research Engineer | STATUS: ACTIVE");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 break;
             case 'skills':
-                appendTerminalOutput("SKILLS_DETECTED: Python, Machine Learning, C++, Security Research");
+                appendTerminalOutput("REDIRECTING_TO_DOCS: Scrolling to SKILLS_AND_DIRECTIVES section.");
+                document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
                 break;
             case 'sendmail':
-                appendTerminalOutput("SECURE_UPLINK_ESTABLISHED.");
-                appendTerminalOutput("ENTER RETURN_ADDRESS (Email):");
+                appendTerminalOutput("Secure Email Setup:");
+                appendTerminalOutput("Enter Email ID:");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 terminalState = 'awaiting_email';
                 break;
-            case 'project':
             case 'projects':
                 appendTerminalOutput("REDIRECTING_TO_DOCS: Scrolling to PROJECT_LOGS section.");
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'contact':
+                appendTerminalOutput("REDIRECTING_TO_DOCS: Scrolling to CONTACT_INITIATE section.");
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
                 break;
             case 'reveal':
                 appendTerminalOutput("SECURITY_BREACH: INITIATING_OVERLAY_SEQUENCE...");
                 triggerRickroll();
                 break;
-            case 'clear':
-                document.getElementById('terminal-history').innerHTML = '';
-                console.clear();
-                break;
             default:
                 appendTerminalOutput(`COMMAND_NOT_FOUND: ${cmd}`);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 
