@@ -53,7 +53,7 @@ function initButterflySystem() {
         init() {
             this.x = Math.random() * canvas.width;
             this.y = canvas.height + 50;
-            this.size = Math.random() * 3 + 2;
+            this.size = Math.random() * 10 + 5; // Increased size
             this.speedX = Math.random() * 1 - 0.5;
             this.speedY = -(Math.random() * 1 + 0.5);
             this.amplitude = Math.random() * 50 + 20;
@@ -159,22 +159,47 @@ function initConsole() {
         playerDiv.innerHTML = ''; // Stop video
     });
 
+    function appendTerminalOutput(text, isCommand = false) {
+        const history = document.getElementById('terminal-history');
+        if (!history) return;
+
+        const line = document.createElement('div');
+        line.className = isCommand ? 'terminal-output-line cmd' : 'terminal-output-line';
+        line.textContent = text;
+        history.appendChild(line);
+
+        // Auto-scroll the hero terminal body
+        const terminalBody = history.parentElement;
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
     function processCommand(cmd) {
+        appendTerminalOutput(cmd, true);
+
         switch(cmd) {
             case 'help':
-                alert("AVAILABLE_COMMANDS: whois, skills, projects, clear, reveal");
+                appendTerminalOutput("AVAILABLE_COMMANDS: whois, skills, projects, clear, reveal");
                 break;
             case 'whois':
-                alert("IDENTITY: K.C. Rasvanth | ROLE: ML Research Engineer");
+                appendTerminalOutput("IDENTITY: K.C. Rasvanth | ROLE: ML Research Engineer | STATUS: ACTIVE");
+                break;
+            case 'skills':
+                appendTerminalOutput("SKILLS_DETECTED: Python, Machine Learning, C++, Security Research");
+                break;
+            case 'projects':
+                appendTerminalOutput("REDIRECTING_TO_DOCS: Scroll down to PROJECT_LOGS section.");
+                window.location.hash = 'projects';
                 break;
             case 'reveal':
+                appendTerminalOutput("SECURITY_BREACH: INITIATING_OVERLAY_SEQUENCE...");
                 triggerRickroll();
                 break;
             case 'clear':
+                document.getElementById('terminal-history').innerHTML = '';
                 console.clear();
                 break;
             default:
-                console.log(`Command not found: ${cmd}`);
+                appendTerminalOutput(`COMMAND_NOT_FOUND: ${cmd}`);
         }
     }
 

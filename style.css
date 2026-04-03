@@ -127,6 +127,27 @@ canvas#butterfly-canvas {
     width: 500px;
     max-width: 90vw;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#terminal-history {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.terminal-output-line {
+    margin-bottom: 8px;
+    color: var(--neon-accent);
+}
+
+.terminal-output-line.cmd {
+    color: var(--text-muted);
+}
+
+.terminal-output-line.cmd::before {
+    content: '> ';
 }
 
 .command { color: var(--neon-accent); margin-bottom: 15px; }

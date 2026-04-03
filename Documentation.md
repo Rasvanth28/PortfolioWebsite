@@ -1,6 +1,6 @@
 # Portfolio Creation Documentation: Cicada 3301 Project
 
-This document outlines the development process of a minimalist, cryptographic-themed portfolio website for a Computer Science student (ML Research Engineer).
+This document outlines the development process of a minimalist, cryptographic-themed portfolio website.
 
 ## 🛠 Tools Used
 - **HTML5 & CSS3**: Core structure and design system.
@@ -12,7 +12,8 @@ This document outlines the development process of a minimalist, cryptographic-th
 ## 🎨 Design Choices
 - **Deep-Space Palette**: Using `#050505` (Deep Black) as the base with `#9d4edd` (Deep Violet) as the neon accent to create a high-contrast, premium "hacker" aesthetic.
 - **Terminal Headers**: Sections like the Hero use terminal-style window decorations to reinforce the CS focus.
-- **Ethereal Butterflies**: Instead of static images, a Canvas-based particle system simulates growth and evolution, appearing to float upwards.
+- **Terminal History area**: Added a dynamic output zone to the initial terminal for real-time command processing.
+- **Ethereal Butterflies**: Custom Canvas-based particle system with adjustable sizing for a more prominent "growth" theme.
 - **Typography**: Exclusive use of monospace fonts to maintain the "puzzle" vibe of the Cicada 3301 mystery.
 
 ## 🚀 Step-by-Step Implementation
@@ -32,4 +33,4 @@ This document outlines the development process of a minimalist, cryptographic-th
 - **Interactive Layers**: Z-indexing the canvas so it remains in the background while still allowing for interaction (clicks/hovers) on the butterflies.
 
 ## 🔗 Deployment
-- The project is structured for easy deployment on **GitHub Pages**. Simply push the repository and enable static site hosting in settings.
+- The project is structured for easy deployment on **GitHub Pages**.
