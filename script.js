@@ -325,7 +325,19 @@ function initConsole() {
 
     function triggerRickroll() {
         overlay.classList.remove('hidden');
-        playerDiv.innerHTML = `<video src="reveal.mp4" autoplay controls style="width: 100%; height: 100%;"></video>`;
+        playerDiv.innerHTML = `
+            <video id="reveal-video" autoplay controls playsinline style="width: 100%; height: 100%;">
+                <source src="reveal.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>`;
+        
+        // Explicitly trigger play (some browsers need this)
+        const video = document.getElementById('reveal-video');
+        if (video) {
+            video.play().catch(error => {
+                console.log("Autoplay prevented. User interaction required.", error);
+            });
+        }
     }
 }
 
